@@ -6,61 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Motorcycle Price Predictor</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
-        crossorigin="anonymous"></script>
+            integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+            crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <div class="container-fluid pt-3">
-        <div class="jumbotron">
-            <h1 class="display-4">Motorcycle resale price predictor</h1>
-            <p class="lead">This is a simple ML app that predicts the resale price of your motorcycle based on using a
-                RandomForestRegressor model.
-            </p>
+<div class="container-fluid pt-3">
+    <div class="jumbotron">
+        <h1 class="display-4">Motorcycle resale price predictor</h1>
+        <p class="lead">This is a simple ML app that predicts the resale price of your motorcycle based on using a
+            RandomForestRegressor model.
+        </p>
 
-            <h3>Your motorcycle will sell for Rs.{{ prediction_text }}</h3>
+        <h3>Your motorcycle will sell for Rs.{{ prediction_text }}</h3>
 
-            <hr class="my-4">
+        <hr class="my-4">
 
-            <form action="{{ url_for('predict')}}" method="post">
-                <div class="form-group">
-                    <label for="showroom-price">Showroom Price</label>
-                    <input type="number" class="form-control" id="showroom-price"
-                        placeholder="Enter the showroom price">
-                </div>
+        <form action="{{ url_for('predict') }}" method="post">
+            <div class="form-group">
+                <label for="showroom-price">Showroom Price</label>
+                <input type="number" class="form-control" id="showroom-price"
+                       placeholder="Enter the showroom price">
+            </div>
 
-                <div class="form-group">
-                    <label for="year">Year of purchase</label>
-                    <input type="number" class="form-control" id="year"
-                        placeholder="Enter the year you purchased your vehicle in">
-                </div>
+            <div class="form-group">
+                <label for="year">Year of purchase</label>
+                <input type="number" class="form-control" id="year"
+                       placeholder="Enter the year you purchased your vehicle in">
+            </div>
 
-                <div class="form-group">
-                    <label for="seller-type">Type of seller</label>
-                    <select class="form-control" id="seller-type" required="required">
-                        <option value="Individual">Individual</option>
-                        <option value="Dealer">Dealer</option>
-                    </select>
-                </div>
+            <div class="form-group">
+                <label for="seller-type">Type of seller</label>
+                <select class="form-control" id="seller-type" required="required">
+                    <option value="Individual">Individual</option>
+                    <option value="Dealer">Dealer</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="num-owners">Number of owners</label>
-                    <input type="number" class="form-control" id="num-owners" placeholder="Enter the number of owners">
-                </div>
+            <div class="form-group">
+                <label for="num-owners">Number of owners</label>
+                <input type="number" class="form-control" id="num-owners" placeholder="Enter the number of owners">
+            </div>
 
-                <div class="form-group">
-                    <label for="kms-driven">Kilometers driven</label>
-                    <input type="number" class="form-control" id="kms-driven"
-                        placeholder="Enter the number of kilometers that this vehicle has been driven">
-                </div>
+            <div class="form-group">
+                <label for="kms-driven">Kilometers driven</label>
+                <input type="number" class="form-control" id="kms-driven"
+                       placeholder="Enter the number of kilometers that this vehicle has been driven">
+            </div>
 
-                <buttom class="btn btn-primary" role="submit">Submit</buttom>
-            </form>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
 
-        </div>
     </div>
+</div>
 
 </body>
 
