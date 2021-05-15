@@ -20,26 +20,26 @@
             RandomForestRegressor model.
         </p>
 
-        <h3>Your motorcycle will sell for Rs.{{ prediction_text }}</h3>
+        <h3>{{ prediction_text }}</h3>
 
         <hr class="my-4">
 
         <form action="{{ url_for('predict') }}" method="post">
             <div class="form-group">
                 <label for="showroom-price">Showroom Price</label>
-                <input type="number" class="form-control" id="showroom-price"
+                <input type="number" class="form-control" id="showroom-price" name="showroom-price"
                        placeholder="Enter the showroom price">
             </div>
 
             <div class="form-group">
                 <label for="year">Year of purchase</label>
-                <input type="number" class="form-control" id="year"
+                <input type="number" class="form-control" id="year" name="year"
                        placeholder="Enter the year you purchased your vehicle in">
             </div>
 
             <div class="form-group">
                 <label for="seller-type">Type of seller</label>
-                <select class="form-control" id="seller-type" required="required">
+                <select class="form-control" id="seller-type" name="seller-type" required="required">
                     <option value="Individual">Individual</option>
                     <option value="Dealer">Dealer</option>
                 </select>
@@ -47,12 +47,13 @@
 
             <div class="form-group">
                 <label for="num-owners">Number of owners</label>
-                <input type="number" class="form-control" id="num-owners" placeholder="Enter the number of owners">
+                <input type="number" class="form-control" id="num-owners" name="num-owners"
+                       placeholder="Enter the number of owners">
             </div>
 
             <div class="form-group">
                 <label for="kms-driven">Kilometers driven</label>
-                <input type="number" class="form-control" id="kms-driven"
+                <input type="number" class="form-control" id="kms-driven" name="kms-driven"
                        placeholder="Enter the number of kilometers that this vehicle has been driven">
             </div>
 

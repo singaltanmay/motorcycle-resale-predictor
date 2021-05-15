@@ -1,9 +1,6 @@
-from flask import Flask, render_template, request
-import jsonify
-import requests
 import pickle
-import numpy as np
-import sklearn
+
+from flask import Flask, render_template, request
 from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
@@ -11,7 +8,7 @@ model = pickle.load(open('motorcycle_price_predictor_model.pkl', 'rb'))
 
 
 @app.route('/', methods=['GET'])
-def Home():
+def home():
     return render_template('index.html')
 
 
@@ -20,41 +17,32 @@ standard_to = StandardScaler()
 
 @app.route("/predict", methods=['POST'])
 def predict():
-    Fuel_Type_Diesel = 0
-    if request.method == 'POST':
-        Year = int(request.form['Year'])
-        Present_Price = float(request.form['Present_Price'])
-        Kms_Driven = int(request.form['Kms_Driven'])
-        Kms_Driven2 = np.log(Kms_Driven)
-        Owner = int(request.form['Owner'])
-        Fuel_Type_Petrol = request.form['Fuel_Type_Petrol']
-        if (Fuel_Type_Petrol == 'Petrol'):
-            Fuel_Type_Petrol = 1
-            Fuel_Type_Diesel = 0
-        else:
-            Fuel_Type_Petrol = 0
-            Fuel_Type_Diesel = 1
-        Year = 2020 - Year
-        Seller_Type_Individual = request.form['Seller_Type_Individual']
-        if (Seller_Type_Individual == 'Individual'):
-            Seller_Type_Individual = 1
-        else:
-            Seller_Type_Individual = 0
-        Transmission_Mannual = request.form['Transmission_Mannual']
-        if (Transmission_Mannual == 'Mannual'):
-            Transmission_Mannual = 1
-        else:
-            Transmission_Mannual = 0
-        prediction = model.predict([[Present_Price, Kms_Driven2, Owner, Year, Fuel_Type_Diesel, Fuel_Type_Petrol,
-                                     Seller_Type_Individual, Transmission_Mannual]])
-        output = round(prediction[0], 2)
-        if output < 0:
-            return render_template('index.html', prediction_texts="Sorry you cannot sell this car")
-        else:
-            return render_template('index.html', prediction_text="You Can Sell The Car at {}".format(output))
-    else:
-        return render_template('index.html')
+    print(request.form.to_dict(flat=False))
+
+    km_driven = float(request.form['kms-driven']) / 1000
+    ex_showroom_price = float(request.form['showroom-price'])
+    no_year = 2021 - int(request.form['year'])
+    seller_type_individual = 1
+    if request.form['seller-type'] == 'Dealer':
+        seller_type_individual = 0
+    owner_2nd_owner = 0
+    owner_3rd_owner = 0
+    owner_4th_owner = 0
+    num_owners = request.form['num-owners']
+    if num_owners == 2:
+        owner_2nd_owner = 1
+    elif num_owners == 3:
+        owner_3rd_owner = 1
+    elif num_owners == 4:
+        owner_4th_owner = 1
+
+    prediction = model.predict([[km_driven, ex_showroom_price, no_year, seller_type_individual, owner_2nd_owner,
+                                 owner_3rd_owner, owner_4th_owner]])
+    output = round(prediction[0], 2) * 1000
+    print("prediction: " + str(output))
+    return render_template('index.html',
+                           prediction_text="You can sell this vehicle for approximately {}".format(int(output)))
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
